@@ -26,7 +26,7 @@ namespace Payroll.Controllers
         // GET: Home/Login
         public IActionResult Login()
         {
-            return View("Login");
+            return View("Auth/Login");
         }
 
         // POST: Home/Login

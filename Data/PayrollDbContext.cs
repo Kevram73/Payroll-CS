@@ -19,6 +19,8 @@ public class PayrollDbContext : DbContext
     public DbSet<Models.Payroll> Payrolls { get; set; }
     public DbSet<SalaryStructure> SalaryStructures { get; set; }
     public DbSet<TaxInformation> TaxInformations { get; set; }
+    public DbSet<ActivityLog> ActivityLogs { get; set; }
+    public DbSet<AppUser> Users { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

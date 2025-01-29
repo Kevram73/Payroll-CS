@@ -1,13 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="soengsouy - Bootstrap Admin Template">
+    <meta name="description" content="Smarthr - Bootstrap Admin Template">
     <meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
-    <meta name="author" content="soengsouy">
+    <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
-    <title>@ViewData["Title"] - HRMS</title>
+    <title>@ViewData["Title"] - HRMS Jobs</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="@Url.Content("~/img/favicon.png")">
@@ -21,6 +21,9 @@
     <!-- Lineawesome CSS -->
     <link rel="stylesheet" href="@Url.Content("~/css/line-awesome.min.css")">
     
+    <!-- Datatable CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/css/dataTables.bootstrap4.min.css")">
+    
     <!-- Select2 CSS -->
     <link rel="stylesheet" href="@Url.Content("~/css/select2.min.css")">
     
@@ -32,21 +35,17 @@
 
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="@Url.Content("~/css/toastr.min.css")">
-
+    
     <script src="@Url.Content("~/js/toastr_jquery.min.js")"></script>
     <script src="@Url.Content("~/js/toastr.min.js")"></script>
 
     @RenderSection("Styles", required: false) <!-- Additional CSS Section -->
 </head>
-<body class="account-page error-page">
-    <style>    
-        .invalid-feedback {
-            font-size: 14px;
-        }
-    </style>
-
+<body>
     <!-- Main Wrapper -->
-    @RenderBody()
+    <div class="main-wrapper">
+        @RenderBody()
+    </div>
     <!-- /Main Wrapper -->
 
     <!-- jQuery -->
@@ -61,6 +60,10 @@
     
     <!-- Select2 JS -->
     <script src="@Url.Content("~/js/select2.min.js")"></script>
+    
+    <!-- Datatable JS -->
+    <script src="@Url.Content("~/js/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/js/dataTables.bootstrap4.min.js")"></script>
     
     <!-- Datetimepicker JS -->
     <script src="@Url.Content("~/js/moment.min.js")"></script>
