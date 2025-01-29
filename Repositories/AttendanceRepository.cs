@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Payroll.Data;
+using Payroll.Interfaces;
 using Payroll.Models;
 
 namespace Payroll.Repositories

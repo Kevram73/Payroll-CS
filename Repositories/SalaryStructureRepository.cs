@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Payroll.Data;
 using Payroll.Models;
+using Payroll.Interfaces;
 
 namespace Payroll.Repositories
 {

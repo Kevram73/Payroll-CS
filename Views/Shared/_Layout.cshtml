@@ -1,49 +1,77 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"] - Payroll</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/Payroll.styles.css" asp-append-version="true"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Payroll</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-                </ul>
+<div>
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <a asp-controller="Home" asp-action="Index" class="text-2xl font-bold text-blue-600">
+                <i class="fas fa-coins"></i> Payroll System
+            </a>
+
+            <!-- Menu Principal -->
+            <div class="hidden md:flex space-x-6">
+                <a asp-controller="Home" asp-action="Index" class="text-gray-600 hover:text-blue-600 transition">Accueil</a>
+                <a href="#features" class="text-gray-600 hover:text-blue-600 transition">Fonctionnalités</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
             </div>
+
+            <!-- Boutons Connexion / Inscription -->
+            <div class="hidden md:flex items-center space-x-4">
+                <a asp-controller="Account" asp-action="Login" class="text-blue-600 hover:text-blue-800 font-semibold transition">Connexion</a>
+                <a asp-controller="Account" asp-action="Register" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">
+                    S'inscrire
+                </a>
+            </div>
+
+            <!-- Menu Burger Mobile -->
+            <button id="menu-btn" class="md:hidden text-gray-600 focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t shadow-lg">
+            <a asp-controller="Home" asp-action="Index" class="block px-6 py-3 text-gray-600 hover:bg-blue-50">Accueil</a>
+            <a href="#features" class="block px-6 py-3 text-gray-600 hover:bg-blue-50">Fonctionnalités</a>
+            <a href="#contact" class="block px-6 py-3 text-gray-600 hover:bg-blue-50">Contact</a>
+            <a asp-controller="Account" asp-action="Login" class="block px-6 py-3 text-blue-600 hover:bg-blue-50">Connexion</a>
+            <a asp-controller="Account" asp-action="Register" class="block px-6 py-3 bg-blue-600 text-white text-center">S'inscrire</a>
         </div>
     </nav>
-</header>
-<div class="container">
+
+    <!-- Script pour le menu mobile -->
+    <script>
+        document.getElementById("menu-btn").addEventListener("click", function() {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+        });
+    </script>
+
+
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2025 - Payroll - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </div>
+<footer class="border-top text-center py-3">
+    &copy; @DateTime.Now.Year - Payroll - <a asp-controller="Home" asp-action="Privacy">Confidentialité</a>
 </footer>
+
+<!-- Bootstrap JS -->
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", required: false)
+
+@RenderSection("Scripts", required: false)
 </body>
 </html>

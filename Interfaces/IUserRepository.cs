@@ -1,7 +1,7 @@
 using Payroll.Models;
 using System.Threading.Tasks;
 
-namespace Payroll.Repositories
+namespace Payroll.Interfaces
 {
     public interface IUserRepository
     {

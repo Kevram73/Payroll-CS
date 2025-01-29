@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Payroll.Interfaces;
 using Payroll.Models;
 using Payroll.Repositories;
-using Payroll.ViewModels;
+using Payroll.Dto.User;
 
 namespace Payroll.Controllers
 {

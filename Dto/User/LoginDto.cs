@@ -1,4 +1,4 @@
-namespace Payroll.ViewModels
+namespace Payroll.Dto.User
 {
     public class LoginDto
     {

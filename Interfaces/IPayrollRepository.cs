@@ -1,4 +1,4 @@
-namespace Payroll.Repositories
+namespace Payroll.Interfaces
 {
     using Payroll.Models;
     using System;

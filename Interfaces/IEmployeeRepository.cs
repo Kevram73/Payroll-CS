@@ -2,7 +2,7 @@ using Payroll.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Payroll.Repositories
+namespace Payroll.Interfaces
 {
     public interface IEmployeeRepository
     {

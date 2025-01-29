@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Payroll.Models;
-using Payroll.ViewModels;
+using Payroll.Dto.User;
 
 namespace Payroll.Controllers
 {
@@ -26,7 +26,7 @@ namespace Payroll.Controllers
         // GET: Home/Login
         public IActionResult Login()
         {
-            return View();
+            return View("Login");
         }
 
         // POST: Home/Login

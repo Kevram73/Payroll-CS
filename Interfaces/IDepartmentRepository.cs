@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Payroll.Models;
 
-namespace Payroll.Models
+namespace Payroll.Interfaces
 {
     public interface IDepartmentRepository
     {

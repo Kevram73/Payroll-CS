@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Payroll.Models;
+using Payroll.Interfaces;
 
 namespace Payroll.Repositories
 {
