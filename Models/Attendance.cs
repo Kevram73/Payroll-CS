@@ -9,7 +9,7 @@ public class Attendance
     public AttendanceStatus Status { get; set; }
 
     public int EmployeeId { get; set; }
-    public Employee Employee { get; set; }
+    public Employee Employee { get; set; } = null!;
 }
 
 public enum AttendanceStatus

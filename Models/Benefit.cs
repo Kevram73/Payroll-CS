@@ -6,7 +6,7 @@ public class Benefit
     public BenefitType Type { get; set; }
     public decimal Amount { get; set; }
     public DateTime BenefitDate { get; set; }
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     public int EmployeeId { get; set; }
     public Employee Employee { get; set; }

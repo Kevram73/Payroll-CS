@@ -1,5 +1,10 @@
 using Payroll.Data;
 using Microsoft.EntityFrameworkCore;
+using Payroll.Repositories;
+using Payroll.Models;
+using Payroll.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +16,23 @@ builder.Services.AddDbContext<PayrollDbContext>(options =>
         new MySqlServerVersion(new Version(8, 0, 32))
     )
 );
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+builder.Services.AddScoped<IBenefitRepository, BenefitRepository>();
+builder.Services.AddScoped<IDeductionRepository, DeductionRepository>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
+builder.Services.AddScoped<IPayrollRepository, PayrollRepository>();
+builder.Services.AddScoped<ISalaryStructureRepository, SalaryStructureRepository>();
+builder.Services.AddScoped<ITaxInformationRepository, TaxInformationRepository>();
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<PayrollDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
 
 var app = builder.Build();
 

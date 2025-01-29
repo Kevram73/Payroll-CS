@@ -1,64 +1,90 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Payroll.Data;
-using Payroll.Interfaces;
 using Payroll.Models;
+using Payroll.Repositories;
 
-namespace Payroll.Controllers;
-
-
-[Route("api/[controller]")]
-[ApiController]
-public class EmployeeController : ControllerBase
+namespace Payroll.Controllers
 {
-    private readonly IEmployeeRepository _service;
-
-    public EmployeeController(IEmployeeRepository service)
+    public class EmployeeController : Controller
     {
-        _service = service;
-    }
+        private readonly IEmployeeRepository _employeeRepository;
 
-    [HttpGet]
-    public async Task<IActionResult> GetAllEmployees()
-    {
-        var employees = await _service.GetAllAsync();
-        return Ok(employees);
-    }
-
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetEmployeeById(int id)
-    {
-        var employee = await _service.GetByIdAsync(id);
-        if (employee == null)
+        public EmployeeController(IEmployeeRepository employeeRepository)
         {
-            return NotFound();
-        }
-        return Ok(employee);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> AddEmployee([FromBody] Employee employee)
-    {
-        await _service.AddAsync(employee);
-        return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.Id }, employee);
-    }
-
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateEmployee(int id, [FromBody] Employee employee)
-    {
-        if (id != employee.Id)
-        {
-            return BadRequest();
+            _employeeRepository = employeeRepository;
         }
 
-        await _service.UpdateAsync(employee);
-        return NoContent();
-    }
+        // GET: /Employee/
+        public async Task<IActionResult> Index()
+        {
+            var employees = await _employeeRepository.GetAllEmployeesAsync();
+            return View(employees);
+        }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteEmployee(int id)
-    {
-        await _service.DeleteAsync(id);
-        return NoContent();
+        // GET: /Employee/Details/5
+        public async Task<IActionResult> Details(int id)
+        {
+            var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
+            if (employee == null) return NotFound();
+            return View(employee);
+        }
+
+        // GET: /Employee/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: /Employee/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                await _employeeRepository.AddEmployeeAsync(employee);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(employee);
+        }
+
+        // GET: /Employee/Edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
+            if (employee == null) return NotFound();
+            return View(employee);
+        }
+
+        // POST: /Employee/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Employee employee)
+        {
+            if (id != employee.Id) return NotFound();
+            if (ModelState.IsValid)
+            {
+                await _employeeRepository.UpdateEmployeeAsync(employee);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(employee);
+        }
+
+        // GET: /Employee/Delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
+            if (employee == null) return NotFound();
+            return View(employee);
+        }
+
+        // POST: /Employee/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _employeeRepository.DeleteEmployeeAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
