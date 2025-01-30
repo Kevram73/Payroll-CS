@@ -16,6 +16,9 @@ builder.Services.AddDbContext<PayrollDbContext>(options =>
         new MySqlServerVersion(new Version(8, 0, 32))
     )
 );
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<PayrollDbContext>()
+    .AddDefaultTokenProviders();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
 builder.Services.AddScoped<IBenefitRepository, BenefitRepository>();
@@ -30,9 +33,7 @@ builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IProfitRepository, ProfitRepository>();
 builder.Services.AddScoped<ITaskEmployeeRepository, TaskEmployeeRepository>();
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
-builder.Services.AddIdentity<AppUser, IdentityRole>()
-    .AddEntityFrameworkStores<PayrollDbContext>()
-    .AddDefaultTokenProviders();
+
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();

@@ -9,6 +9,7 @@ using Payroll.Data;
 
 namespace Payroll.Controllers
 {
+    [Route("account")]
     public class AccountController : Controller
     {
         private readonly SignInManager<AppUser> _signInManager;
@@ -22,18 +23,17 @@ namespace Payroll.Controllers
             _context = context;
         }
 
-
         // 🔹 Affiche le formulaire de connexion
-        [HttpGet]
+        [HttpGet("login")]
         public IActionResult Login()
         {
             return View();
         }
 
         // 🔹 Gère la connexion de l'utilisateur
-        [HttpPost]
+        [HttpPost("login")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginDto model)
+        public async Task<IActionResult> Login([FromForm] LoginDto model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -41,29 +41,24 @@ namespace Payroll.Controllers
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                TempData["Error"] = "Invalid login attempt.";
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 return View(model);
             }
 
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
             if (!result.Succeeded)
             {
-                TempData["Error"] = "Invalid email or password.";
+                ModelState.AddModelError(string.Empty, "Invalid email or password.");
                 return View(model);
             }
 
-            // 🔹 Enregistrer la session
-            HttpContext.Session.SetString("FirstName", user.FirstName);
-            HttpContext.Session.SetString("LastName", user.LastName);
-            HttpContext.Session.SetString("Email", user.Email);
-            HttpContext.Session.SetString("UserId", user.Id);
 
             TempData["Success"] = "Login successful!";
             return RedirectToAction("Index", "Home");
         }
 
         // 🔹 Déconnexion de l'utilisateur
-        [HttpPost]
+        [HttpPost("logout")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {

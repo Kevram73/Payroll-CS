@@ -73,7 +73,7 @@
             <!-- Logo -->
             <div class="header-left">
                 <a href="@Url.Action("Index", "Home")" class="logo">
-                    <img src="@Url.Content("~/images/default-avatar.png")" width="40" height="40" alt="Logo">
+                    <h3 style="color: white; padding-top: 10px;">Payroll M.</h3>
                 </a>
             </div>
             <!-- /Logo -->
@@ -113,7 +113,7 @@
                                     <a href="#">
                                         <div class="media">
                                             <span class="avatar">
-                                                <img alt="" src="@Url.Content("~/images/default-avatar.png")">
+                                                <img alt="" src="@Url.Content("~/images/1025521371.png")">
                                             </span>
                                             <div class="media-body">
                                                 <p class="noti-details"><span class="noti-title">John Doe</span> added a new task.</p>
@@ -151,11 +151,11 @@
         <!-- /Header -->
 
         <!-- Sidebar -->
-        @await Html.PartialAsync("./Parts/_Sidebar")
+        @await Html.PartialAsync("_Sidebar")
         <!-- /Sidebar -->
 
         <!-- Page Wrapper -->
-        <div class="page-wrapper">
+        <div class="">
             @RenderBody()
         </div>
         <!-- /Page Wrapper -->

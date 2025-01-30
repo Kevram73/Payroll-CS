@@ -32,11 +32,13 @@ namespace Payroll.Controllers
             ViewBag.TotalPaymentMethods = _context.PaymentMethods.Count();
             ViewBag.TotalAttendanceRecords = _context.Attendances.Count();
             ViewBag.TotalUsers = _context.Users.Count();
-            ViewBag.TotalRevenue = _context.Profits.Sum(p => p.TotalRevenue);
-            ViewBag.TotalExpenses = _context.Profits.Sum(p => p.TotalExpenses);
-            ViewBag.NetProfit = _context.Profits.Sum(p => p.NetProfit);
+    
+            ViewBag.TotalRevenue = _context.Profits.Sum(p => (decimal?)p.TotalRevenue) ?? 0;
+            ViewBag.TotalExpenses = _context.Profits.Sum(p => (decimal?)p.TotalExpenses) ?? 0;
+            ViewBag.NetProfit = _context.Profits.Sum(p => (decimal?)(p.TotalRevenue - p.TotalExpenses)) ?? 0;
 
             return View();
         }
+
     }
 }
