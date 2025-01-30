@@ -1,5 +1,6 @@
 using Payroll.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Payroll.Data;
 
@@ -31,6 +32,25 @@ public class PayrollDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        var hasher = new PasswordHasher<AppUser>();
+
+        modelBuilder.Entity<AppUser>().HasData(
+            new AppUser
+            {
+                Id = "1",
+                FirstName = "Kevin",
+                LastName = "Brown",
+                UserName = "kevram",
+                NormalizedUserName = "KEVRAM",
+                Email = "kevram@payroll.com",
+                NormalizedEmail = "KEVRAM@PAYROLL.COM",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "Admin@123"),
+                SecurityStamp = string.Empty
+            }
+        );
+    
 
         // Configure the one-to-one relationship between Employee and PaymentMethod
         modelBuilder.Entity<Employee>()
