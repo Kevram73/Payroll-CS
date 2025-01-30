@@ -1,62 +1,42 @@
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Payroll.Models;
-using Payroll.Dto.User;
+using Microsoft.AspNetCore.Authorization;
+using Payroll.Data;
+using System.Linq;
 
 namespace Payroll.Controllers
 {
+    [Authorize] // 🔹 Accès restreint aux utilisateurs connectés
     public class HomeController : Controller
     {
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly UserManager<AppUser> _userManager;
+        private readonly PayrollDbContext _context;
 
-        public HomeController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+        public HomeController(PayrollDbContext context)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
+            _context = context;
         }
 
-        // GET: Home/Index (Landing Page)
+        // 🔹 Dashboard principal
         public IActionResult Index()
         {
+            ViewBag.TotalEmployees = _context.Employees.Count();
+            ViewBag.TotalProjects = _context.Projects.Count();
+            ViewBag.TotalTasks = _context.TaskEmployees.Count();
+            ViewBag.TotalDepartments = _context.Departments.Count();
+            ViewBag.TotalDeductions = _context.Deductions.Count();
+            ViewBag.TotalBenefits = _context.Benefits.Count();
+            ViewBag.TotalInvoices = _context.Invoices.Count();
+            ViewBag.TotalPayments = _context.Payments.Count();
+            ViewBag.TotalPayrolls = _context.Payrolls.Count();
+            ViewBag.TotalSalaryStructures = _context.SalaryStructures.Count();
+            ViewBag.TotalTaxInformation = _context.TaxInformations.Count();
+            ViewBag.TotalPaymentMethods = _context.PaymentMethods.Count();
+            ViewBag.TotalAttendanceRecords = _context.Attendances.Count();
+            ViewBag.TotalUsers = _context.Users.Count();
+            ViewBag.TotalRevenue = _context.Profits.Sum(p => p.TotalRevenue);
+            ViewBag.TotalExpenses = _context.Profits.Sum(p => p.TotalExpenses);
+            ViewBag.NetProfit = _context.Profits.Sum(p => p.NetProfit);
+
             return View();
-        }
-
-        // GET: Home/Login
-        public IActionResult Login()
-        {
-            return View("Auth/Login");
-        }
-
-        // POST: Home/Login
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginDto model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user != null)
-                {
-                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                ModelState.AddModelError("", "Invalid login attempt.");
-            }
-            return View(model);
-        }
-
-        // POST: Home/Logout
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
         }
     }
 }

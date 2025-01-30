@@ -22,16 +22,12 @@ namespace Payroll.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
-        {
-            return View("Home/Index");
-        }
 
         // 🔹 Affiche le formulaire de connexion
         [HttpGet]
         public IActionResult Login()
         {
-            return View("Auth/Login");
+            return View();
         }
 
         // 🔹 Gère la connexion de l'utilisateur

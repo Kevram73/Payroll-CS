@@ -20,7 +20,13 @@ public class PayrollDbContext : DbContext
     public DbSet<SalaryStructure> SalaryStructures { get; set; }
     public DbSet<TaxInformation> TaxInformations { get; set; }
     public DbSet<ActivityLog> ActivityLogs { get; set; }
+    public DbSet<Invoice> Invoices { get; set; }
+    public DbSet<Payment> Payments { get; set; }
+    public DbSet<Profit> Profits { get; set; }
+    public DbSet<TaskEmployee> TaskEmployees { get; set; }
+    public DbSet<Project> Projects { get; set; }
     public DbSet<AppUser> Users { get; set; }
+    public DbSet<EmployeeProject> EmployeeProjects { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -39,5 +45,18 @@ public class PayrollDbContext : DbContext
             .HasOne(e => e.TaxInformation)
             .WithOne(ti => ti.Employee)
             .HasForeignKey<TaxInformation>(ti => ti.EmployeeId);
+
+            modelBuilder.Entity<EmployeeProject>()
+        .HasKey(ep => new { ep.EmployeeId, ep.ProjectId });
+
+    modelBuilder.Entity<EmployeeProject>()
+        .HasOne(ep => ep.Employee)
+        .WithMany(e => e.EmployeeProjects)
+        .HasForeignKey(ep => ep.EmployeeId);
+
+    modelBuilder.Entity<EmployeeProject>()
+        .HasOne(ep => ep.Project)
+        .WithMany(p => p.EmployeeProjects)
+        .HasForeignKey(ep => ep.ProjectId);
     }
 }

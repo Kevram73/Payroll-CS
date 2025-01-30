@@ -12,7 +12,7 @@ public class Payroll
     public DateTime PaymentDate { get; set; }
     public PayrollStatus Status { get; set; }
 
-    public Employee Employee { get; set; }
+    public Employee? Employee { get; set; }
 }
 
 public enum PayrollStatus

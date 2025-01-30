@@ -23,4 +23,5 @@ public class Employee
     public ICollection<Deduction> Deductions { get; set; }
     public ICollection<Benefit> Benefits { get; set; }
     public ICollection<Attendance> Attendances { get; set; }
+    public ICollection<EmployeeProject> EmployeeProjects { get; set; }
 }
