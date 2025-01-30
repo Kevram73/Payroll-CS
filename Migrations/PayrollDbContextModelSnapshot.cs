@@ -247,9 +247,9 @@ namespace Payroll.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "eee1cedd-7878-44cf-8249-b59e95a6cce1",
+                            Id = "8026594a-b279-415b-8955-31fdc7cf4fd6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "250617a2-72d3-468b-904a-60218b7a39ab",
+                            ConcurrencyStamp = "909ed3fd-2329-4ca8-b90a-8729de68d0a3",
                             Email = "kevram@payroll.com",
                             EmailConfirmed = true,
                             FirstName = "Kevin",
@@ -257,9 +257,9 @@ namespace Payroll.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "KEVRAM@PAYROLL.COM",
                             NormalizedUserName = "KEVRAM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBZtdx/9ymOn01NyvI9uc7S8MvKbZMKcz5H4jwDEwsvIwp6agk1N9/4Uq01TrV433A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJAhKlXn8NhjugsSl9nwy4ooSuqtjpe1k1y5e92/2QgXwmOfz+HjZZXfkEV8mLecQQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "00aff572-5a5a-45b9-a75f-980454500c1c",
+                            SecurityStamp = "f44258c2-ded3-420c-b863-c599e4fb3816",
                             TwoFactorEnabled = false,
                             UserName = "kevram"
                         });
