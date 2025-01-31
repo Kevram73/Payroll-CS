@@ -1,0 +1,45 @@
+name: Deploy ASP.NET Core with Docker & Nginx
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  deploy_dotnet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install SSH Client
+        run: sudo apt-get install -y sshpass
+
+      - name: Copy Project Files to Server via SFTP
+        env:
+          VPS_IP: ${{ secrets.VPS_IP }}
+          VPS_USER: ubuntu
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          sshpass -p "$SSH_PASSWORD" sftp -o StrictHostKeyChecking=no $VPS_USER@$VPS_IP <<EOF
+            mkdir -p /var/www/aniac_user_admin
+            cd /var/www/aniac_user_admin
+            put -r *
+          EOF
+
+      - name: Build & Launch Docker Containers on Server
+        env:
+          VPS_IP: ${{ secrets.VPS_IP }}
+          VPS_USER: ubuntu
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_IP <<EOF
+            cd /var/www/aniac_user_admin
+            docker-compose down
+            docker-compose build --no-cache
+            docker-compose up -d
+          EOF
