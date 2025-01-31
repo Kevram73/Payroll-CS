@@ -26,8 +26,8 @@ jobs:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
           sshpass -p "$SSH_PASSWORD" sftp -o StrictHostKeyChecking=no $VPS_USER@$VPS_IP <<EOF
-            mkdir -p /var/www/aniac_user_admin
-            cd /var/www/aniac_user_admin
+            mkdir -p /home/ubuntu/projects/payroll
+            cd /home/ubuntu/projects/payroll
             put -r *
           EOF
 
@@ -38,7 +38,7 @@ jobs:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_IP <<EOF
-            cd /var/www/aniac_user_admin
+            cd /home/ubuntu/projects/payroll
             docker-compose down
             docker-compose build --no-cache
             docker-compose up -d
