@@ -1,14 +1,14 @@
+using System;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Payroll.Models;
 
 namespace Payroll.Data
 {
-    public class SeedEmployeeProject : IEntityTypeConfiguration<EmployeeProject>
+    public static class SeedEmployeeProject
     {
-        public void Configure(EntityTypeBuilder<EmployeeProject> builder)
+        public static void Seed(ModelBuilder modelBuilder)
         {
-            builder.HasData(
+            modelBuilder.Entity<EmployeeProject>().HasData(
                 new EmployeeProject
                 {
                     EmployeeId = 1,
@@ -36,7 +36,7 @@ namespace Payroll.Data
                 },
                 new EmployeeProject
                 {
-                    EmployeeId = 5,
+                    EmployeeId = 2,
                     ProjectId = 4
                 }
             );

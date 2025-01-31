@@ -1,15 +1,14 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Payroll.Models;
 using System;
+using Microsoft.EntityFrameworkCore;
+using Payroll.Models;
 
 namespace Payroll.Data
 {
-    public class SeedDeduction : IEntityTypeConfiguration<Deduction>
+    public static class SeedDeduction
     {
-        public void Configure(EntityTypeBuilder<Deduction> builder)
+        public static void Seed(ModelBuilder modelBuilder)
         {
-            builder.HasData(
+            modelBuilder.Entity<Deduction>().HasData(
                 new Deduction
                 {
                     Id = 1,

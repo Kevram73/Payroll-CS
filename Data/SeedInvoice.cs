@@ -1,15 +1,14 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Payroll.Models;
 using System;
+using Microsoft.EntityFrameworkCore;
+using Payroll.Models;
 
 namespace Payroll.Data
 {
-    public class SeedInvoice : IEntityTypeConfiguration<Invoice>
+    public static class SeedInvoice
     {
-        public void Configure(EntityTypeBuilder<Invoice> builder)
+        public static void Seed(ModelBuilder modelBuilder)
         {
-            builder.HasData(
+            modelBuilder.Entity<Invoice>().HasData(
                 new Invoice
                 {
                     Id = 1,

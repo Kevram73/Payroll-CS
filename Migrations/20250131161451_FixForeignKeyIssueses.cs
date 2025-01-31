@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Payroll.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class FixForeignKeyIssueses : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -461,32 +463,6 @@ namespace Payroll.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Payments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    PaymentMethodId = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    PaymentDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Status = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Payments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Payments_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Payrolls",
                 columns: table => new
                 {
@@ -591,10 +567,181 @@ namespace Payroll.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    PaymentMethodId = table.Column<int>(type: "int", nullable: true),
+                    PaymentDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Status = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Payments_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Payments_PaymentMethods_PaymentMethodId",
+                        column: x => x.PaymentMethodId,
+                        principalTable: "PaymentMethods",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "eee1cedd-7878-44cf-8249-b59e95a6cce1", 0, "250617a2-72d3-468b-904a-60218b7a39ab", "kevram@payroll.com", true, "Kevin", "Brown", false, null, "KEVRAM@PAYROLL.COM", "KEVRAM", "AQAAAAIAAYagAAAAEBZtdx/9ymOn01NyvI9uc7S8MvKbZMKcz5H4jwDEwsvIwp6agk1N9/4Uq01TrV433A==", null, false, "00aff572-5a5a-45b9-a75f-980454500c1c", false, "kevram" });
+                values: new object[] { "5c8b9f08-73c7-4644-9781-f83aa803e528", 0, "bc31cc3e-fca8-4cf4-abf2-5cef34a4a5ca", "kevram@payroll.com", true, "Kevin", "Brown", false, null, "KEVRAM@PAYROLL.COM", "KEVRAM", "AQAAAAIAAYagAAAAEM/dpdASiP5rTdq7X5g7MboavGZCQSxD+cWnQ3tbqAnH0yzJLmrUlO2enM2c1JMJxw==", null, false, "92ba13ce-b8d3-4a03-bbf6-e1df715d4529", false, "kevram" });
+
+            migrationBuilder.InsertData(
+                table: "Departments",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Gestion des employés et des ressources humaines.", "Ressources Humaines" },
+                    { 2, "Développement, maintenance et support IT.", "Informatique" },
+                    { 3, "Gestion des finances et des budgets.", "Finance" },
+                    { 4, "Publicité et stratégies de croissance.", "Marketing" },
+                    { 5, "Développement des ventes et gestion des clients.", "Ventes" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Profits",
+                columns: new[] { "Id", "CalculatedDate", "TotalExpenses", "TotalRevenue" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 75000.00m, 100000.00m },
+                    { 2, new DateTime(2024, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), 80000.00m, 120000.00m },
+                    { 3, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 82000.00m, 110000.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Projects",
+                columns: new[] { "Id", "Budget", "Description", "EndDate", "Name", "StartDate", "Status" },
+                values: new object[,]
+                {
+                    { 1, 50000.00m, "Enhancing the payroll system for better efficiency and security.", new DateTime(2024, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Payroll System Upgrade", new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "InProgress" },
+                    { 2, 75000.00m, "Adding new benefits for employees, including healthcare and retirement plans.", null, "Employee Benefits Expansion", new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pending" },
+                    { 3, 60000.00m, "Developing a system to automatically calculate tax deductions.", new DateTime(2024, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Automated Tax Calculation", new DateTime(2023, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Completed" },
+                    { 4, 60000.00m, "Developing a system to automatically calculate tax deductions.", new DateTime(2024, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Automated Tax Calculation Hell", new DateTime(2023, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pending" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "Id", "DepartmentId", "Email", "FirstName", "HireDate", "LastName", "PaymentMethodId", "Phone", "SalaryStructureId", "TaxInformationId", "TerminationDate" },
+                values: new object[,]
+                {
+                    { 1, 1, "jean.dupont@example.com", "Jean", new DateTime(2020, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dupont", 1, "0612345678", 1, 1, null },
+                    { 2, 2, "marie.curie@example.com", "Marie", new DateTime(2019, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Curie", 2, "0623456789", 2, 2, null },
+                    { 3, 3, "albert.einstein@example.com", "Albert", new DateTime(2021, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Einstein", 3, "0634567890", 3, 3, null },
+                    { 4, 4, "isaac.newton@example.com", "Isaac", new DateTime(2018, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Newton", 4, "0645678901", 4, 4, null },
+                    { 5, 5, "ada.lovelace@example.com", "Ada", new DateTime(2022, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lovelace", 5, "0656789012", 5, 5, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Attendances",
+                columns: new[] { "Id", "ClockIn", "ClockOut", "EmployeeId", "HoursWorked", "Status" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 1, 15, 9, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 15, 17, 0, 0, 0, DateTimeKind.Unspecified), 1, 8m, 0 },
+                    { 2, new DateTime(2024, 1, 15, 9, 30, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 15, 17, 30, 0, 0, DateTimeKind.Unspecified), 2, 8m, 2 },
+                    { 3, new DateTime(2024, 1, 15, 9, 30, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 15, 17, 30, 0, 0, DateTimeKind.Unspecified), 3, 0m, 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Benefits",
+                columns: new[] { "Id", "Amount", "BenefitDate", "Description", "EmployeeId", "Type" },
+                values: new object[,]
+                {
+                    { 1, 500.00m, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Prime de performance annuelle", 1, 0 },
+                    { 2, 200.00m, new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Heures supplémentaires", 2, 2 },
+                    { 3, 150.00m, new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Indemnité de transport", 3, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Deductions",
+                columns: new[] { "Id", "Amount", "DeductionDate", "Description", "EmployeeId", "Type" },
+                values: new object[,]
+                {
+                    { 1, 300.00m, new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Impôt sur le revenu", 1, 3 },
+                    { 2, 100.00m, new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Assurance santé", 2, 0 },
+                    { 3, 250.00m, new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Cotisation retraite", 3, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Invoices",
+                columns: new[] { "Id", "Amount", "DueDate", "EmployeeId", "InvoiceNumber", "Status" },
+                values: new object[,]
+                {
+                    { 1, 1500.00m, new DateTime(2025, 2, 15, 16, 14, 50, 752, DateTimeKind.Utc).AddTicks(5830), 1, "INV-202401", "Pending" },
+                    { 2, 2000.00m, new DateTime(2025, 2, 10, 16, 14, 50, 752, DateTimeKind.Utc).AddTicks(5830), 2, "INV-202402", "Paid" },
+                    { 3, 1800.00m, new DateTime(2025, 1, 26, 16, 14, 50, 752, DateTimeKind.Utc).AddTicks(5840), 3, "INV-202403", "Overdue" },
+                    { 4, 2200.00m, new DateTime(2025, 2, 20, 16, 14, 50, 752, DateTimeKind.Utc).AddTicks(5840), 4, "INV-202404", "Pending" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PaymentMethods",
+                columns: new[] { "Id", "AccountNumber", "BankName", "EmployeeId", "RoutingNumber", "Type" },
+                values: new object[,]
+                {
+                    { 1, "123456789", "Bank of America", 1, "987654321", 0 },
+                    { 2, "234567891", "Chase Bank", 2, "876543219", 1 },
+                    { 3, "345678912", "Wells Fargo", 3, "765432198", 2 },
+                    { 4, "", "", 4, "", 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Payments",
+                columns: new[] { "Id", "Amount", "EmployeeId", "PaymentDate", "PaymentMethodId", "Status" },
+                values: new object[] { 3, 1800.50m, 3, new DateTime(2025, 1, 31, 16, 14, 50, 752, DateTimeKind.Utc).AddTicks(5880), null, "Pending" });
+
+            migrationBuilder.InsertData(
+                table: "Payrolls",
+                columns: new[] { "Id", "EmployeeId", "GrossSalary", "NetSalary", "PayPeriodEnd", "PayPeriodStart", "PaymentDate", "Status", "TotalDeductions" },
+                values: new object[,]
+                {
+                    { 1, 1, 3000.00m, 2500.00m, new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 500.00m },
+                    { 2, 2, 4000.00m, 3300.00m, new DateTime(2024, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 700.00m },
+                    { 3, 3, 3500.00m, 2900.00m, new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 2, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 600.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SalaryStructures",
+                columns: new[] { "Id", "BasicSalary", "EffectiveDate", "EmployeeId", "HousingAllowance", "MedicalAllowance", "OtherAllowances", "TransportAllowance" },
+                values: new object[,]
+                {
+                    { 1, 5000.00m, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1500.00m, 300.00m, 200.00m, 500.00m },
+                    { 2, 6000.00m, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1800.00m, 400.00m, 250.00m, 600.00m },
+                    { 3, 5500.00m, new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 1700.00m, 350.00m, 225.00m, 550.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TaxInformations",
+                columns: new[] { "Id", "EmployeeId", "Exemptions", "FilingStatus", "TaxIdentificationNumber", "TaxWithholding" },
+                values: new object[,]
+                {
+                    { 1, 1, 1000.00m, 0, "TIN123456789", 500.00m },
+                    { 2, 2, 1500.00m, 1, "TIN987654321", 400.00m },
+                    { 3, 3, 1200.00m, 3, "TIN456789123", 600.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Payments",
+                columns: new[] { "Id", "Amount", "EmployeeId", "PaymentDate", "PaymentMethodId", "Status" },
+                values: new object[,]
+                {
+                    { 1, 1500.00m, 1, new DateTime(2025, 1, 24, 16, 14, 50, 752, DateTimeKind.Utc).AddTicks(5880), 1, "Paid" },
+                    { 2, 2000.00m, 2, new DateTime(2025, 1, 28, 16, 14, 50, 752, DateTimeKind.Utc).AddTicks(5880), 2, "Processed" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -675,6 +822,11 @@ namespace Payroll.Migrations
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Payments_PaymentMethodId",
+                table: "Payments",
+                column: "PaymentMethodId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Payrolls_EmployeeId",
                 table: "Payrolls",
                 column: "EmployeeId");
@@ -734,9 +886,6 @@ namespace Payroll.Migrations
                 name: "Invoices");
 
             migrationBuilder.DropTable(
-                name: "PaymentMethods");
-
-            migrationBuilder.DropTable(
                 name: "Payments");
 
             migrationBuilder.DropTable(
@@ -762,6 +911,9 @@ namespace Payroll.Migrations
 
             migrationBuilder.DropTable(
                 name: "Projects");
+
+            migrationBuilder.DropTable(
+                name: "PaymentMethods");
 
             migrationBuilder.DropTable(
                 name: "Employees");

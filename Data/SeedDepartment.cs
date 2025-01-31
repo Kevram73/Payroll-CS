@@ -1,14 +1,14 @@
+using System;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Payroll.Models;
 
 namespace Payroll.Data
 {
-    public class SeedDepartment : IEntityTypeConfiguration<Department>
+    public static class SeedDepartment
     {
-        public void Configure(EntityTypeBuilder<Department> builder)
+        public static void Seed(ModelBuilder modelBuilder)
         {
-            builder.HasData(
+            modelBuilder.Entity<Department>().HasData(
                 new Department
                 {
                     Id = 1,

@@ -34,6 +34,8 @@ public class PayrollDbContext : IdentityDbContext<AppUser>
         base.OnModelCreating(modelBuilder);
 
         var hasher = new PasswordHasher<AppUser>();
+        
+        
 
         modelBuilder.Entity<AppUser>().HasData(
             new AppUser
@@ -50,6 +52,8 @@ public class PayrollDbContext : IdentityDbContext<AppUser>
                 SecurityStamp = Guid.NewGuid().ToString()
             }
         );
+        
+        
     
         modelBuilder.Entity<Employee>()
             .HasOne(e => e.PaymentMethod)
@@ -78,5 +82,23 @@ public class PayrollDbContext : IdentityDbContext<AppUser>
             .HasOne(ep => ep.Project)
             .WithMany(p => p.EmployeeProjects)
             .HasForeignKey(ep => ep.ProjectId);
+        
+        SeedDepartment.Seed(modelBuilder);  
+        SeedProject.Seed(modelBuilder);    // ✅ Seed des projets avant EmployeeProjects
+        SeedEmployee.Seed(modelBuilder);   // ✅ Seed des employés après les projets
+
+        SeedSalaryStructure.Seed(modelBuilder);
+        SeedPaymentMethod.Seed(modelBuilder);
+        SeedTaxInformation.Seed(modelBuilder);
+
+        // SeedEmployeeProject.Seed(modelBuilder); // ✅ EmployeeProjects après Employees et Projects
+
+        SeedAttendance.Seed(modelBuilder);
+        SeedBenefit.Seed(modelBuilder);
+        SeedDeduction.Seed(modelBuilder);
+        SeedInvoice.Seed(modelBuilder);
+        SeedPayment.Seed(modelBuilder);
+        SeedPayroll.Seed(modelBuilder);
+        SeedProfit.Seed(modelBuilder);
     }
 }

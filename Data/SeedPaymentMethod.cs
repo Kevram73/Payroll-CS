@@ -1,14 +1,14 @@
+using System;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Payroll.Models;
 
 namespace Payroll.Data
 {
-    public class SeedPaymentMethod : IEntityTypeConfiguration<PaymentMethod>
+    public static class SeedPaymentMethod
     {
-        public void Configure(EntityTypeBuilder<PaymentMethod> builder)
+        public static void Seed(ModelBuilder modelBuilder)
         {
-            builder.HasData(
+            modelBuilder.Entity<PaymentMethod>().HasData(
                 new PaymentMethod
                 {
                     Id = 1,
@@ -40,9 +40,9 @@ namespace Payroll.Data
                 {
                     Id = 4,
                     Type = PaymentMethodType.Cash,
-                    BankName = "",
-                    AccountNumber = "",
-                    RoutingNumber = "",
+                    BankName = string.Empty,
+                    AccountNumber = string.Empty,
+                    RoutingNumber = string.Empty,
                     EmployeeId = 4
                 }
             );

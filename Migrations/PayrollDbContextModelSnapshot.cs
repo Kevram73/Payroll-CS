@@ -247,9 +247,9 @@ namespace Payroll.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8026594a-b279-415b-8955-31fdc7cf4fd6",
+                            Id = "5c8b9f08-73c7-4644-9781-f83aa803e528",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "909ed3fd-2329-4ca8-b90a-8729de68d0a3",
+                            ConcurrencyStamp = "bc31cc3e-fca8-4cf4-abf2-5cef34a4a5ca",
                             Email = "kevram@payroll.com",
                             EmailConfirmed = true,
                             FirstName = "Kevin",
@@ -257,9 +257,9 @@ namespace Payroll.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "KEVRAM@PAYROLL.COM",
                             NormalizedUserName = "KEVRAM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJAhKlXn8NhjugsSl9nwy4ooSuqtjpe1k1y5e92/2QgXwmOfz+HjZZXfkEV8mLecQQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEM/dpdASiP5rTdq7X5g7MboavGZCQSxD+cWnQ3tbqAnH0yzJLmrUlO2enM2c1JMJxw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f44258c2-ded3-420c-b863-c599e4fb3816",
+                            SecurityStamp = "92ba13ce-b8d3-4a03-bbf6-e1df715d4529",
                             TwoFactorEnabled = false,
                             UserName = "kevram"
                         });
@@ -291,6 +291,35 @@ namespace Payroll.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("Attendances");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClockIn = new DateTime(2024, 1, 15, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            ClockOut = new DateTime(2024, 1, 15, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeId = 1,
+                            HoursWorked = 8m,
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClockIn = new DateTime(2024, 1, 15, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            ClockOut = new DateTime(2024, 1, 15, 17, 30, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeId = 2,
+                            HoursWorked = 8m,
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClockIn = new DateTime(2024, 1, 15, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            ClockOut = new DateTime(2024, 1, 15, 17, 30, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeId = 3,
+                            HoursWorked = 0m,
+                            Status = 4
+                        });
                 });
 
             modelBuilder.Entity("Payroll.Models.Benefit", b =>
@@ -320,6 +349,35 @@ namespace Payroll.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("Benefits");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 500.00m,
+                            BenefitDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Prime de performance annuelle",
+                            EmployeeId = 1,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 200.00m,
+                            BenefitDate = new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Heures supplémentaires",
+                            EmployeeId = 2,
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Amount = 150.00m,
+                            BenefitDate = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Indemnité de transport",
+                            EmployeeId = 3,
+                            Type = 3
+                        });
                 });
 
             modelBuilder.Entity("Payroll.Models.Deduction", b =>
@@ -349,6 +407,35 @@ namespace Payroll.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("Deductions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 300.00m,
+                            DeductionDate = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Impôt sur le revenu",
+                            EmployeeId = 1,
+                            Type = 3
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 100.00m,
+                            DeductionDate = new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Assurance santé",
+                            EmployeeId = 2,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Amount = 250.00m,
+                            DeductionDate = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Cotisation retraite",
+                            EmployeeId = 3,
+                            Type = 1
+                        });
                 });
 
             modelBuilder.Entity("Payroll.Models.Department", b =>
@@ -368,6 +455,38 @@ namespace Payroll.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Departments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Gestion des employés et des ressources humaines.",
+                            Name = "Ressources Humaines"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Développement, maintenance et support IT.",
+                            Name = "Informatique"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Gestion des finances et des budgets.",
+                            Name = "Finance"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Publicité et stratégies de croissance.",
+                            Name = "Marketing"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Développement des ventes et gestion des clients.",
+                            Name = "Ventes"
+                        });
                 });
 
             modelBuilder.Entity("Payroll.Models.Employee", b =>
@@ -415,6 +534,73 @@ namespace Payroll.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DepartmentId = 1,
+                            Email = "jean.dupont@example.com",
+                            FirstName = "Jean",
+                            HireDate = new DateTime(2020, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Dupont",
+                            PaymentMethodId = 1,
+                            Phone = "0612345678",
+                            SalaryStructureId = 1,
+                            TaxInformationId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DepartmentId = 2,
+                            Email = "marie.curie@example.com",
+                            FirstName = "Marie",
+                            HireDate = new DateTime(2019, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Curie",
+                            PaymentMethodId = 2,
+                            Phone = "0623456789",
+                            SalaryStructureId = 2,
+                            TaxInformationId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DepartmentId = 3,
+                            Email = "albert.einstein@example.com",
+                            FirstName = "Albert",
+                            HireDate = new DateTime(2021, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Einstein",
+                            PaymentMethodId = 3,
+                            Phone = "0634567890",
+                            SalaryStructureId = 3,
+                            TaxInformationId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DepartmentId = 4,
+                            Email = "isaac.newton@example.com",
+                            FirstName = "Isaac",
+                            HireDate = new DateTime(2018, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Newton",
+                            PaymentMethodId = 4,
+                            Phone = "0645678901",
+                            SalaryStructureId = 4,
+                            TaxInformationId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DepartmentId = 5,
+                            Email = "ada.lovelace@example.com",
+                            FirstName = "Ada",
+                            HireDate = new DateTime(2022, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Lovelace",
+                            PaymentMethodId = 5,
+                            Phone = "0656789012",
+                            SalaryStructureId = 5,
+                            TaxInformationId = 5
+                        });
                 });
 
             modelBuilder.Entity("Payroll.Models.EmployeeProject", b =>
@@ -460,6 +646,44 @@ namespace Payroll.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("Invoices");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 1500.00m,
+                            DueDate = new DateTime(2025, 2, 15, 16, 14, 50, 752, DateTimeKind.Utc).AddTicks(5830),
+                            EmployeeId = 1,
+                            InvoiceNumber = "INV-202401",
+                            Status = "Pending"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 2000.00m,
+                            DueDate = new DateTime(2025, 2, 10, 16, 14, 50, 752, DateTimeKind.Utc).AddTicks(5830),
+                            EmployeeId = 2,
+                            InvoiceNumber = "INV-202402",
+                            Status = "Paid"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Amount = 1800.00m,
+                            DueDate = new DateTime(2025, 1, 26, 16, 14, 50, 752, DateTimeKind.Utc).AddTicks(5840),
+                            EmployeeId = 3,
+                            InvoiceNumber = "INV-202403",
+                            Status = "Overdue"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Amount = 2200.00m,
+                            DueDate = new DateTime(2025, 2, 20, 16, 14, 50, 752, DateTimeKind.Utc).AddTicks(5840),
+                            EmployeeId = 4,
+                            InvoiceNumber = "INV-202404",
+                            Status = "Pending"
+                        });
                 });
 
             modelBuilder.Entity("Payroll.Models.Payment", b =>
@@ -477,9 +701,8 @@ namespace Payroll.Migrations
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("PaymentMethodId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int?>("PaymentMethodId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -489,7 +712,37 @@ namespace Payroll.Migrations
 
                     b.HasIndex("EmployeeId");
 
+                    b.HasIndex("PaymentMethodId");
+
                     b.ToTable("Payments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 1500.00m,
+                            EmployeeId = 1,
+                            PaymentDate = new DateTime(2025, 1, 24, 16, 14, 50, 752, DateTimeKind.Utc).AddTicks(5880),
+                            PaymentMethodId = 1,
+                            Status = "Paid"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 2000.00m,
+                            EmployeeId = 2,
+                            PaymentDate = new DateTime(2025, 1, 28, 16, 14, 50, 752, DateTimeKind.Utc).AddTicks(5880),
+                            PaymentMethodId = 2,
+                            Status = "Processed"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Amount = 1800.50m,
+                            EmployeeId = 3,
+                            PaymentDate = new DateTime(2025, 1, 31, 16, 14, 50, 752, DateTimeKind.Utc).AddTicks(5880),
+                            Status = "Pending"
+                        });
                 });
 
             modelBuilder.Entity("Payroll.Models.PaymentMethod", b =>
@@ -522,6 +775,44 @@ namespace Payroll.Migrations
                         .IsUnique();
 
                     b.ToTable("PaymentMethods");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccountNumber = "123456789",
+                            BankName = "Bank of America",
+                            EmployeeId = 1,
+                            RoutingNumber = "987654321",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccountNumber = "234567891",
+                            BankName = "Chase Bank",
+                            EmployeeId = 2,
+                            RoutingNumber = "876543219",
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AccountNumber = "345678912",
+                            BankName = "Wells Fargo",
+                            EmployeeId = 3,
+                            RoutingNumber = "765432198",
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AccountNumber = "",
+                            BankName = "",
+                            EmployeeId = 4,
+                            RoutingNumber = "",
+                            Type = 3
+                        });
                 });
 
             modelBuilder.Entity("Payroll.Models.Payroll", b =>
@@ -559,6 +850,44 @@ namespace Payroll.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("Payrolls");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EmployeeId = 1,
+                            GrossSalary = 3000.00m,
+                            NetSalary = 2500.00m,
+                            PayPeriodEnd = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PayPeriodStart = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDate = new DateTime(2024, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 2,
+                            TotalDeductions = 500.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            EmployeeId = 2,
+                            GrossSalary = 4000.00m,
+                            NetSalary = 3300.00m,
+                            PayPeriodEnd = new DateTime(2024, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PayPeriodStart = new DateTime(2024, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDate = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 1,
+                            TotalDeductions = 700.00m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            EmployeeId = 3,
+                            GrossSalary = 3500.00m,
+                            NetSalary = 2900.00m,
+                            PayPeriodEnd = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PayPeriodStart = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDate = new DateTime(2024, 2, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 0,
+                            TotalDeductions = 600.00m
+                        });
                 });
 
             modelBuilder.Entity("Payroll.Models.Profit", b =>
@@ -579,6 +908,29 @@ namespace Payroll.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Profits");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CalculatedDate = new DateTime(2024, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TotalExpenses = 75000.00m,
+                            TotalRevenue = 100000.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CalculatedDate = new DateTime(2024, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TotalExpenses = 80000.00m,
+                            TotalRevenue = 120000.00m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CalculatedDate = new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TotalExpenses = 82000.00m,
+                            TotalRevenue = 110000.00m
+                        });
                 });
 
             modelBuilder.Entity("Payroll.Models.Project", b =>
@@ -612,6 +964,47 @@ namespace Payroll.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Projects");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Budget = 50000.00m,
+                            Description = "Enhancing the payroll system for better efficiency and security.",
+                            EndDate = new DateTime(2024, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Payroll System Upgrade",
+                            StartDate = new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = "InProgress"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Budget = 75000.00m,
+                            Description = "Adding new benefits for employees, including healthcare and retirement plans.",
+                            Name = "Employee Benefits Expansion",
+                            StartDate = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = "Pending"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Budget = 60000.00m,
+                            Description = "Developing a system to automatically calculate tax deductions.",
+                            EndDate = new DateTime(2024, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Automated Tax Calculation",
+                            StartDate = new DateTime(2023, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = "Completed"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Budget = 60000.00m,
+                            Description = "Developing a system to automatically calculate tax deductions.",
+                            EndDate = new DateTime(2024, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Automated Tax Calculation Hell",
+                            StartDate = new DateTime(2023, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = "Pending"
+                        });
                 });
 
             modelBuilder.Entity("Payroll.Models.SalaryStructure", b =>
@@ -647,6 +1040,41 @@ namespace Payroll.Migrations
                         .IsUnique();
 
                     b.ToTable("SalaryStructures");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BasicSalary = 5000.00m,
+                            EffectiveDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeId = 1,
+                            HousingAllowance = 1500.00m,
+                            MedicalAllowance = 300.00m,
+                            OtherAllowances = 200.00m,
+                            TransportAllowance = 500.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BasicSalary = 6000.00m,
+                            EffectiveDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeId = 2,
+                            HousingAllowance = 1800.00m,
+                            MedicalAllowance = 400.00m,
+                            OtherAllowances = 250.00m,
+                            TransportAllowance = 600.00m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BasicSalary = 5500.00m,
+                            EffectiveDate = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeId = 3,
+                            HousingAllowance = 1700.00m,
+                            MedicalAllowance = 350.00m,
+                            OtherAllowances = 225.00m,
+                            TransportAllowance = 550.00m
+                        });
                 });
 
             modelBuilder.Entity("Payroll.Models.TaskEmployee", b =>
@@ -708,6 +1136,35 @@ namespace Payroll.Migrations
                         .IsUnique();
 
                     b.ToTable("TaxInformations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EmployeeId = 1,
+                            Exemptions = 1000.00m,
+                            FilingStatus = 0,
+                            TaxIdentificationNumber = "TIN123456789",
+                            TaxWithholding = 500.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            EmployeeId = 2,
+                            Exemptions = 1500.00m,
+                            FilingStatus = 1,
+                            TaxIdentificationNumber = "TIN987654321",
+                            TaxWithholding = 400.00m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            EmployeeId = 3,
+                            Exemptions = 1200.00m,
+                            FilingStatus = 3,
+                            TaxIdentificationNumber = "TIN456789123",
+                            TaxWithholding = 600.00m
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -843,7 +1300,13 @@ namespace Payroll.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Payroll.Models.PaymentMethod", "PaymentMethod")
+                        .WithMany()
+                        .HasForeignKey("PaymentMethodId");
+
                     b.Navigation("Employee");
+
+                    b.Navigation("PaymentMethod");
                 });
 
             modelBuilder.Entity("Payroll.Models.PaymentMethod", b =>
