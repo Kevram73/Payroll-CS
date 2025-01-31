@@ -30,6 +30,7 @@ jobs:
             cd /home/ubuntu/payroll/
             put -r *
           EOF
+          
 
       - name: Run Deployment Script on Server (with sudo)
         env:
