@@ -11,15 +11,14 @@ COPY . .
 RUN dotnet publish "Payroll.csproj" -c Release -o /app/publish
 
 # Runtime Stage
-FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
 
-# Remove default nginx config and copy custom one
-RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy published app from build stage
+COPY --from=build /app/publish .
 
-# Copy ASP.NET Core output to NGINX directory
-COPY --from=build /app/publish /usr/share/nginx/html
-
+# Expose port 80
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+
+# Set entrypoint
+ENTRYPOINT ["dotnet", "Payroll.dll"]
