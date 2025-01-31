@@ -1,0 +1,113 @@
+@model IEnumerable<Employee>
+
+@{
+ViewData["Title"] = "Gestion des Employés";
+Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Gestion des Employés</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index">Tableau de Bord</a></li>
+                        <li class="breadcrumb-item active">Employés</li>
+                    </ul>
+                </div>
+                <div class="col-auto float-right ml-auto">
+                    <a asp-action="Create" class="btn btn-primary">
+                        <i class="fa fa-plus"></i> Ajouter un Employé
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tableau des employés -->
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="employeeTable" class="table table-striped custom-table datatable">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Téléphone</th>
+                            <th>Date d'embauche</th>
+                            <th>Département</th>
+                            <th class="text-right">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var employee in Model)
+                        {
+                        <tr>
+                            <td>@employee.Id</td>
+                            <td>
+                                <h2 class="table-avatar">
+                                    <a asp-action="Details" asp-route-id="@employee.Id" class="avatar"><img src="~/images/employees/@employee.Id" alt="@employee.FirstName @employee.LastName"></a>
+                                    <a asp-action="Details" asp-route-id="@employee.Id">
+                                        @employee.FirstName @employee.LastName
+                                        <span>@employee.Department?.Name</span>
+                                    </a>
+                                </h2>
+                            </td>
+                            <td>@employee.Email</td>
+                            <td>@employee.Phone</td>
+                            <td>@employee.HireDate.ToString("dd/MM/yyyy")</td>
+                            <td>@employee.Department?.Name</td>
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action">
+                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" asp-action="Details" asp-route-id="@employee.Id">
+                                            <i class="fa fa-eye m-r-5"></i> Voir
+                                        </a>
+                                        <a class="dropdown-item" asp-action="Edit" asp-route-id="@employee.Id">
+                                            <i class="fa fa-pencil m-r-5"></i> Modifier
+                                        </a>
+                                        <form asp-action="Delete" asp-route-id="@employee.Id" method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer cet employé ?');">
+                                            <button type="submit" class="dropdown-item text-danger">
+                                                <i class="fa fa-trash m-r-5"></i> Supprimer
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#employeeTable').DataTable({
+            "language": {
+                "lengthMenu": "Afficher _MENU_ entrées",
+                "zeroRecords": "Aucun employé trouvé",
+                "info": "Affichage de _PAGE_ sur _PAGES_",
+                "infoEmpty": "Aucune donnée disponible",
+                "infoFiltered": "(filtré sur _MAX_ entrées)",
+                "search": "Rechercher :",
+                "paginate": {
+                    "first": "Premier",
+                    "last": "Dernier",
+                    "next": "Suivant",
+                    "previous": "Précédent"
+                }
+            }
+        });
+    });
+</script>

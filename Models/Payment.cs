@@ -7,7 +7,8 @@ namespace Payroll.Models
         public int Id { get; set; }
         public int EmployeeId { get; set; }
         public decimal Amount { get; set; }
-        public string PaymentMethodId { get; set; } = string.Empty;
+        public int? PaymentMethodId { get; set; }
+        public PaymentMethod? PaymentMethod { get; set; } 
         public DateTime PaymentDate { get; set; } = DateTime.UtcNow;
         public string Status { get; set; } = "Pending"; // Pending, Processed, Paid, Cancelled
         public Employee? Employee { get; set; }

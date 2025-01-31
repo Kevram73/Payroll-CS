@@ -23,9 +23,9 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a href="/Employees"><i class="la la-list"></i> Liste des employés</a></li>
-                        <li><a href="/Departments"><i class="la la-building"></i> Départements</a></li>
-                        <li><a href="/Attendances"><i class="la la-clock-o"></i> Pointages</a></li>
+                        <li><a asp-action="Index" asp-controller="Employee"><i class="la la-list"></i> Liste des employés</a></li>
+                        <li><a asp-action="Index" asp-controller="Department"><i class="la la-building"></i> Départements</a></li>
+                        <li><a asp-action="Index" asp-controller="Attendance"><i class="la la-clock-o"></i> Pointages</a></li>
                     </ul>
                 </li>
 
@@ -36,9 +36,9 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a href="/Payrolls"><i class="la la-money"></i> Feuilles de paie</a></li>
-                        <li><a href="/SalaryStructures"><i class="la la-calculator"></i> Structures salariales</a></li>
-                        <li><a href="/PaymentMethods"><i class="la la-credit-card"></i> Méthodes de paiement</a></li>
+                        <li><a asp-action="Index" asp-controller="Payroll"><i class="la la-money"></i> Feuilles de paie</a></li>
+                        <li><a asp-action="Index" asp-controller="SalaryStructure"><i class="la la-calculator"></i> Structures salariales</a></li>
+                        <li><a asp-action="Index" asp-controller="PaymentMethod"><i class="la la-credit-card"></i> Méthodes de paiement</a></li>
                     </ul>
                 </li>
 
@@ -49,9 +49,9 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a href="/Benefits"><i class="la la-plus-circle"></i> Avantages sociaux</a></li>
-                        <li><a href="/Deductions"><i class="la la-minus-circle"></i> Déductions</a></li>
-                        <li><a href="/TaxInformations"><i class="la la-balance-scale"></i> Informations fiscales</a></li>
+                        <li><a asp-action="Index" asp-controller="Benefit"><i class="la la-plus-circle"></i> Avantages sociaux</a></li>
+                        <li><a asp-action="Index" asp-controller="Deduction"><i class="la la-minus-circle"></i> Déductions</a></li>
+                        <li><a asp-action="Index" asp-controller="TaxInformation"><i class="la la-balance-scale"></i> Informations fiscales</a></li>
                     </ul>
                 </li>
 
@@ -65,8 +65,8 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a href="/Projects"><i class="la la-cubes"></i> Projets</a></li>
-                        <li><a href="/TaskEmployees"><i class="la la-tasks"></i> Tâches</a></li>
+                        <li><a asp-action="Index" asp-controller="Project"><i class="la la-cubes"></i> Projets</a></li>
+                        <li><a asp-action="Index" asp-controller="TaskEmployee"><i class="la la-tasks"></i> Tâches</a></li>
                     </ul>
                 </li>
 
@@ -77,9 +77,9 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a href="/Invoices"><i class="la la-file-invoice"></i> Factures</a></li>
-                        <li><a href="/Payments"><i class="la la-receipt"></i> Paiements</a></li>
-                        <li><a href="/Profits"><i class="la la-chart-line"></i> Rentabilité</a></li>
+                        <li><a asp-action="Index" asp-controller="Invoice"><i class="la la-file-invoice"></i> Factures</a></li>
+                        <li><a asp-action="Index" asp-controller="Payment"><i class="la la-receipt"></i> Paiements</a></li>
+                        <li><a asp-action="Index" asp-controller="Profit"><i class="la la-chart-line"></i> Rentabilité</a></li>
                     </ul>
                 </li>
 
@@ -87,7 +87,7 @@
                     <span>Administration</span>
                 </li>
                 <li>
-                    <a href="/Users">
+                    <a asp-action="Index" asp-controller="User">
                         <i class="la la-user-cog"></i>
                         <span>Utilisateurs</span>
                     </a>
