@@ -26,8 +26,15 @@ jobs:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
           sshpass -p "$SSH_PASSWORD" sftp -o StrictHostKeyChecking=no $VPS_USER@$VPS_IP <<EOF
-            mkdir -p /home/ubuntu/
-            cd /home/ubuntu/
+            mkdir -p /home/ubuntu/payroll/
+            cd /home/ubuntu/payroll/
             put -r *
           EOF
 
+      - name: Run Deployment Script on Server (with sudo)
+        env:
+          VPS_IP: ${{ secrets.VPS_IP }}
+          VPS_USER: ubuntu
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_IP 'sudo bash /home/ubuntu/deploy.sh'
