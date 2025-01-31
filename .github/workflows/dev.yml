@@ -31,15 +31,3 @@ jobs:
             put -r *
           EOF
 
-      - name: Build & Launch Docker Containers on Server
-        env:
-          VPS_IP: ${{ secrets.VPS_IP }}
-          VPS_USER: ubuntu
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-        run: |
-          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_IP <<EOF
-            cd /var/www/html/payroll
-            docker-compose down
-            docker-compose build --no-cache
-            docker-compose up -d
-          EOF
