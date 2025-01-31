@@ -26,9 +26,9 @@ jobs:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
           sshpass -p "$SSH_PASSWORD" sftp -o StrictHostKeyChecking=no $VPS_USER@$VPS_IP <<EOF
-            mkdir -p /var/www/html/payroll
-            cd /var/www/html/payroll
-            put -r *
+            sudo mkdir -p /var/www/html/payroll
+            sudo cd /var/www/html/payroll
+            sudo put -r *
           EOF
           
 
